@@ -1,0 +1,11 @@
+----------------- Options ---------------
+               batch_size: 1                             
+                 bilinear: False                         
+                 data_dir: ./dataset                     
+            learning_rate: 0.0001                        
+                 momentum: 0.9                           
+             restore_from: None                          
+                      set: train                         
+             snapshot_dir: ./snapshots                   
+             weight_decay: 1e-08                         
+----------------- End -------------------
