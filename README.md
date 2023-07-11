@@ -4,6 +4,12 @@
 
 论文地址：[arxiv.org/pdf/1505.04597.pdf](https://arxiv.org/pdf/1505.04597.pdf) 
 
+笔记：
+
+​	github: [2 UNet 模型 (jermainn.github.io)](https://jermainn.github.io/docsNote/#/Semantic_Segmentation/2_UNet_model)
+
+​	gitee: [2 UNet 模型 (gitee.io)](https://jermainn.gitee.io/docsnote/#/Semantic_Segmentation/2_UNet_model)
+
 ### 模型调整
 
 <img src="https://cdn.jsdelivr.net/gh/jermainn/imgpic@master/note_img/UNet.webp" alt="UNet" style="zoom:67%;" />
