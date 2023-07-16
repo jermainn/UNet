@@ -12,7 +12,7 @@ class DoubleConv(nn.Module):
             mid_channels = out_channels
         self.double_conv = nn.Sequential(
             nn.Conv2d(in_channels, mid_channels, kernel_size=3, padding=1, bias=False),
-            nn.BatchNorm2d(out_channels),
+            nn.BatchNorm2d(mid_channels),
             nn.ReLU(inplace=True),
             nn.Conv2d(mid_channels, out_channels, kernel_size=3, padding=1, bias=False),
             nn.BatchNorm2d(out_channels),
@@ -87,11 +87,13 @@ class UNet(nn.Module):
                  n_channels,
                  num_classes,
                  bilinear=False,
-                 base_c=64):
+                 base_c=64,
+                 phase='train'):
         super(UNet, self).__init__()
         self.n_channels = n_channels
         self.num_classes = num_classes
         self.bilinear = bilinear
+        self.phase = phase
 
         # the contracting path
         self.in_conv = DoubleConv(self.n_channels, base_c)
@@ -109,7 +111,7 @@ class UNet(nn.Module):
         # out
         self.outc = OutConv(base_c, num_classes)
 
-    def forward(self, x):
+    def forward(self, x, lbl=None):
         # the contracting path
         x1 = self.in_conv(x)
         x2 = self.down1(x1)
@@ -120,11 +122,39 @@ class UNet(nn.Module):
         x = self.up1(x, x4)
         x = self.up2(x, x3)
         x = self.up3(x, x2)
-        x = self.up1(x, x1)
+        x = self.up4(x, x1)
+        x = self.outc(x)
 
-        return self.outc(x)
+        if self.phase == 'train' and lbl is not None:
+            self.loss = self.criterion_loss(x, lbl)
+
+        return x
+
+
+    def criterion_loss(self, pred, lbl):
+        criterion = nn.BCEWithLogitsLoss()
+        return criterion(pred, lbl)
+
 
 if __name__ == '__main__':
+    # print(torch.cuda.get_arch_list())
+    # exit()
     net = UNet(n_channels=1, num_classes=1)
+    net.cuda()
+    from torchsummary import summary
+    summary(net, (1, 320, 320), batch_size=1)
     print(net)
+    # torch.cuda.is
+
+    # from torch.utils.tensorboard import SummaryWriter
+    from tensorboardX import SummaryWriter
+    writer = SummaryWriter(r"E:\我的文件\8 研究生学习\2 语义分割\1 笔记\img\mylog")
+
+    from PIL import Image
+    import numpy as np
+    img = Image.open(r"E:\我的文件\8 研究生学习\2 语义分割\1 笔记\img\dataVOC.png")
+    img = np.asarray(img)
+    writer.add_image('first', img, dataformats='HWC')
+    writer.add_graph(net, input_to_model=torch.rand(size=(1, 1, 320, 320)).cuda())
+
 

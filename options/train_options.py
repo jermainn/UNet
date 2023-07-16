@@ -6,15 +6,20 @@ class TrainOptions():
         parser = argparse.ArgumentParser(description="U-Net Model")
         parser.add_argument("--data-dir", type=str, default='./dataset', help="Path to directory containing the train and test dataset")
         parser.add_argument("--batch-size", type=int, default=1, help="imput batch size.")
-        parser.add_argument("--learning-rate", type=float, default=0.0001, help="initial learning rate.")
+        parser.add_argument("--learning-rate", type=float, default=0.00001, help="initial learning rate.")
         parser.add_argument("--weight-decay", type=float, default=1e-8, help="Regularisation parameter for loss.")
         parser.add_argument("--momentum", type=float, default=0.9, help="Momentum component of the optimiser.")
+
+        parser.add_argument("--n-channels", type=int, default=1, help="The input data channels.")
+        parser.add_argument("--num-classes", type=int, default=1, help="The number of class.")
 
         parser.add_argument("--bilinear", type=bool, default=False, help="Use bilinear upsampling or not.")
         parser.add_argument("--set", type=str, default='train', help="train or not.")
         parser.add_argument("--snapshot-dir", type=str, default='./snapshots', help="Where to save snapshots of the model.")
         parser.add_argument("--restore-from", type=str, default=None, help="Where restore model parameters from.")
 
+        parser.add_argument("--epochs", type=int, default=10, help="How many epochs to train.")
+        parser.add_argument("--save-pred-epoch", type=int, default=2, help="Save summaries and checkpoint every often.")
         # parser.add_argument()
 
         return parser.parse_args()

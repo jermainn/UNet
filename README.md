@@ -8,9 +8,9 @@
 
 笔记：
 
-​	github: [2 UNet 模型 (jermainn.github.io)](https://jermainn.github.io/docsNote/#/Semantic_Segmentation/2_UNet_model)
+​	GitHub: [2 UNet 模型 (jermainn.github.io)](https://jermainn.github.io/docsNote/#/Semantic_Segmentation/2_UNet_model)
 
-​	gitee: [2 UNet 模型 (gitee.io)](https://jermainn.gitee.io/docsnote/#/Semantic_Segmentation/2_UNet_model)
+​	Gitee: [2 UNet 模型 (gitee.io)](https://jermainn.gitee.io/docsnote/#/Semantic_Segmentation/2_UNet_model)
 
 ### 模型调整
 
@@ -24,6 +24,6 @@
 
 ### 进度
 
-已经完成模型的构建和数据读取部分，下一步进行模型训练过程部分的编辑
+已经完成模型的构建和数据读取和模型训练部分程序设计，下一步进行模型训练和模型评估
 
 进行中……
